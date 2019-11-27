@@ -1,1 +1,9 @@
-# avr_for_arduinoIDE
+# ise_motor_driver_2
+
+### dipスイッチの役割
+- 1: ショートブレーキのON/OFF
+- 2: PID機能のON/OFF
+- 3: I2Cアドレス設定
+- 4: I2Cアドレス設定
+
+3, 4 は両方OFFでプリセット使用, 3のみならば0x08を使用, 4のみならば0x09を使用, 両方ONでテストモード
