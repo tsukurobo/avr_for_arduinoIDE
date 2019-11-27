@@ -1,6 +1,8 @@
 #ifndef IMD_GLOBAL_H
 #define IMD_GLOBAL_H
 
+
+
 typedef enum I2CAddrMode {
   I2C_PRESET,
   I2C_ADDR1,
@@ -13,8 +15,12 @@ typedef enum PIDMode {
 } PIDMode;
 
 bool is_pid, is_brake, is_test;
+long int counter;
 I2CAddrMode i2c_addr_mode;
 PIDMode pid_mode;
+//Ti2c receiver;
+
+
 
 #endif
 
