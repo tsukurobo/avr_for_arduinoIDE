@@ -3,9 +3,10 @@
 #define PIN_I2C_A 1
 #define PIN_I2C_B 0
 
-#include "global.h"
-
 #include "Arduino.h"
+
+#include "global.h"
+#include "dip.h"
 
 void read_dip() {
   // pin table for i2c address pin:

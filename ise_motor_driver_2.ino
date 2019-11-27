@@ -1,6 +1,4 @@
-#include"dip.cpp"
-
-
+#include "dip.h"
 
 void setup() {
   read_dip();
