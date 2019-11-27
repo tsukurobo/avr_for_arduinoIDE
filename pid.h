@@ -1,3 +1,6 @@
+#ifndef IMD_PID_H
+#define IMD_PID_H
+
 #define PWMH 5
 #define PWML 6
 #define dir 7
@@ -24,3 +27,6 @@ int pw = 0;
 
 double enc = 0;
 double preenc = 0;
+
+#endif
+

@@ -1,12 +1,9 @@
-#include <Arduino.h>
-
-#include "dip.h"
-#include "global.h"
-
 #define PIN_BRAKE 3
 #define PIN_PID 2
 #define PIN_I2C_A 1
 #define PIN_I2C_B 0
+
+#include "global.h"
 
 void read_dip() {
   // pin table for i2c address pin:
