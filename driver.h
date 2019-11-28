@@ -1,4 +1,7 @@
-#define PWMH 5
-#define PWML 6
-#define dir 7
-#define SR 4
+#ifndef IMD_DRIVER_H
+#define IMD_DRIVER_H
+
+void drive(int duty);
+
+#endif
+

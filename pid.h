@@ -1,32 +1,22 @@
 #ifndef IMD_PID_H
 #define IMD_PID_H
 
-#define PWMH 5
-#define PWML 6
-#define dir 7
-#define SR 4
+#include "config.h"
 
-#define max_duty 255
-#define min_duty -255
-#define POSITION 0
-#define VELOCITY 1
-#define resolution_enc 4048
-#define dt 0.003
+class PIDController {
+  public:
+    PIDController(float Kp, float Ki, float Kd, Config& cfg);
 
-const float Kp=4.05516;
-const float Ki=0.21958;
-const float Kd=0.00059;
+    float update(float target);
 
-float P=0;
-float preP=0;
-float I=0;
-float D=0;
-
-float duty=0;
-int pw = 0;
-
-double enc = 0;
-double preenc = 0;
+  private:
+    Config cfg;
+    float Kp, Ki, Kd;
+    float I;
+    float enc_prev;
+    unsigned long long time_prev;
+    float prev_e; // 過去の偏差
+};
 
 #endif
 
