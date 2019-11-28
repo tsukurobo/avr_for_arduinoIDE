@@ -3,6 +3,12 @@
 #include "pid.h"
 #include "state.h"
 #include "config.h"
+#include "driver.h"
+
+#define SR 4
+#define PWMH 5
+#define PWML 6
+#define PHASE 7
 
 void setup() {
   // i2cは 0x0a 〜 0x77 の値を推奨, 0x80以上は多分プロトコル的に動かない
@@ -10,11 +16,28 @@ void setup() {
   Config cfg = Config(0x22, 4096);
   cfg.read_from_dip();
 
+  // Kp, Ki, Kd, cfg
   PIDController pid = PIDController(4.05516, 0.21958, 0.00059, cfg);
 
   PORTC &= ~(1<<PINC0 | 1<<PINC1);
+  pinMode(SR, OUTPUT);
+  pinMode(PWMH, OUTPUT);
+  pinMode(PWML, OUTPUT);
+  pinMode(PHASE, OUTPUT);
 
   Wire.begin(cfg.i2c_addr);
+
+  long long t_prev = millis();
+  if(!cfg.is_test) {
+    while(true) {
+      // 1000Hz
+      if(abs(millis() - t_prev) > 1) {
+        t_prev = millis();
+        if(cfg.is_pid) pid.update(pid_target);
+        drive(power, cfg);
+      }
+    }
+  }
 }
 
 void loop() {

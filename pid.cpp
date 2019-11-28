@@ -25,12 +25,15 @@ float PIDController::update(float target) {
   float dt = (time_now - time_prev) / 1000.;
   time_prev = time_now;
 
+  // ピン割込みでcounterが壊れるかもしれないので
+  noInterrupts();
   float current_value;
   if(cfg.pid_mode == PID_POSITION)
     current_value = (float)counter / cfg.encoder_resolution;
   else if(cfg.pid_mode == PID_VELOCITY)
     current_value = (float)(enc_prev - counter) / cfg.encoder_resolution / dt;
   enc_prev = counter;
+  interrupts();
 
   float e = target - current_value;
   float P = e;

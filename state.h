@@ -3,7 +3,11 @@
 
 #include "Arduino.h"
 
-extern int64_t counter;
+// encoder value
+extern volatile int64_t counter;
+// -100 <= power <= 100
+extern volatile int8_t power;
+extern volatile float pid_target;
 
 #endif
 
