@@ -29,10 +29,12 @@ void setup() {
 
   long long t_prev = millis();
   if(!cfg.is_test) {
-    if(abs(millis() - t_prev) > 1) {
-      t_prev = millis();
-      if(cfg.is_pid) pid.update(pid_target);
-      drive(power, cfg);
+    while(true) {
+      if(abs(millis() - t_prev) > 1) {
+        t_prev = millis();
+        if(cfg.is_pid) pid.update(pid_target);
+        drive(power, cfg);
+      }
     }
   }
 }
