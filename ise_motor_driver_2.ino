@@ -16,8 +16,8 @@ void setup() {
   Config cfg = Config(0x22, 4096);
   cfg.read_from_dip();
 
-  // Kp, Ki, Kd, cfg
-  PIDController pid = PIDController(4.05516, 0.21958, 0.00059, cfg);
+  PIDConfig pcfg = PIDConfig(1, 1, 1, PID_VELOCITY);
+  PIDController pid = PIDController(cfg, pcfg);
 
   PORTC &= ~(1<<PINC0 | 1<<PINC1);
   pinMode(SR, OUTPUT);
@@ -29,13 +29,10 @@ void setup() {
 
   long long t_prev = millis();
   if(!cfg.is_test) {
-    while(true) {
-      // 1000Hz
-      if(abs(millis() - t_prev) > 1) {
-        t_prev = millis();
-        if(cfg.is_pid) pid.update(pid_target);
-        drive(power, cfg);
-      }
+    if(abs(millis() - t_prev) > 1) {
+      t_prev = millis();
+      if(cfg.is_pid) pid.update(pid_target);
+      drive(power, cfg);
     }
   }
 }
