@@ -1,4 +1,5 @@
 #include <Wire.h>
+
 #include "comm.h"
 #include "state.h"
 
@@ -17,7 +18,7 @@ void read_power() {
 }
 
 void recv_handler(int numBytes) {
-  if(numBytes == 4) read_power();
+  read_power();
 }
 
 void set_wire_callback() {
