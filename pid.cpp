@@ -19,7 +19,7 @@ float PIDController::update(float target) {
   float current_value;
   if(pcfg.mode == PID_POSITION)
     current_value = (float)counter / cfg.encoder_resolution;
-  else if(pcfg.mode == PID_VELOCITY)
+  else
     current_value = (float)(enc_prev - counter) / cfg.encoder_resolution / dt;
   enc_prev = counter;
   interrupts();

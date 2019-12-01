@@ -1,6 +1,7 @@
 #include <Wire.h>
 
 #include "pid.h"
+#include "comm.h"
 #include "state.h"
 #include "config.h"
 #include "driver.h"
@@ -10,6 +11,7 @@
 #define PWML 6
 #define PHASE 7
 
+// TODO: clean up everything
 void setup() {
   // i2cは 0x0a 〜 0x77 の値を推奨, 0x80以上は多分プロトコル的に動かない
   // Config(i2c_addr, encoder_resolution)
@@ -26,14 +28,17 @@ void setup() {
   pinMode(PHASE, OUTPUT);
 
   Wire.begin(cfg.i2c_addr);
+  set_wire_callback();
 
   long long t_prev = millis();
   if(!cfg.is_test) {
     while(true) {
       if(abs(millis() - t_prev) > 1) {
         t_prev = millis();
-        if(cfg.is_pid) pid.update(pid_target);
-        drive(power, cfg);
+
+        int8_t raw_power = power;
+        if(cfg.is_pid) raw_power = pid.update(pid_target);
+        drive(raw_power, cfg);
       }
     }
   }
