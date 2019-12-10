@@ -7,7 +7,7 @@
 void write_counter() {
   union {
     byte b[4];
-    int64_t i;
+    int32_t i;
   } conv;
   conv.i = counter;
   Wire.write(conv.b, 4);

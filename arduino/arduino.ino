@@ -15,8 +15,6 @@ void loop() {
   if(abs(power) == 100) diff *= -1;
   power += diff;
   imd.set_power(power);
-  char text[10];
-  sprintf(text, "%lld", imd.get_encoder());
-  Serial.println(text);
+  Serial.println(imd.get_encoder());
 }
 

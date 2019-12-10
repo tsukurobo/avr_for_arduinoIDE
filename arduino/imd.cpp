@@ -8,11 +8,11 @@ void IseMotorDriver::set_power(int8_t power) {
   Wire.endTransmission();
 }
 
-int64_t IseMotorDriver::get_encoder() {
+int32_t IseMotorDriver::get_encoder() {
   Wire.requestFrom(addr, 4);
   union {
     byte b[4];
-    int64_t i;
+    int32_t i;
   } conv;
   for(int i=0; i<4; i++) conv.b[i] = Wire.read();
   return conv.i;
